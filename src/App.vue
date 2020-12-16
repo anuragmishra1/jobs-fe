@@ -1,60 +1,81 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <div id="app-root">
+    <template>
+      <v-app>
+        <v-main class="page-content">
+          <!-- Header toolbar -->
+          <app-toolbar></app-toolbar>
+          <v-container fluid>
+            <router-view :key="$route.fullPath"></router-view>
+          </v-container>
+        </v-main>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+        <v-snackbar
+          timeout="3000"
+          top
+          right
+          :color="snackbar.color"
+          v-model="snackbar.show"
+        >
+          {{ snackbar.text }}
+        </v-snackbar>
+      </v-app>
+    </template>
+    <!-- <template v-else>
+      <transition>
+        <keep-alive>
+          <router-view></router-view>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+          <v-snackbar
+            timeout="3000"
+            top
+            right
+            :color="snackbar.color"
+            v-model="snackbar.show"
+          >
+            {{ snackbar.text }}
+          </v-snackbar>
+        </keep-alive>
+      </transition>
+    </template> -->
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import AppToolbar from "@/components/app-toolbar";
 
 export default {
-  name: 'App',
-
   components: {
-    HelloWorld,
+    AppToolbar,
+  },
+  data: () => ({
+    snackbar: {
+      show: false,
+      text: "",
+      color: "",
+    },
+  }),
+
+  methods: {
+    isAuthenticated() {
+      return localStorage.getItem("token");
+    },
   },
 
-  data: () => ({
-    //
-  }),
+  mounted() {
+    this.$root.$on("SHOW_SNACKBAR", (data) => {
+      this.snackbar = {
+        show: true,
+        text: data.text,
+        color: data.color,
+      };
+    });
+  },
 };
 </script>
+
+<style>
+.page-content {
+  background-color: rgb(236, 236, 236);
+}
+</style>
