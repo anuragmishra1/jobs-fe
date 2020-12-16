@@ -7,6 +7,7 @@ const getValue = (key) => {
 const instance = axios.create({
 	baseURL: process.env.VUE_APP_BE_API_URL
 });
+console.log('====process.env.VUE_APP_BE_API_URL=====', process.env.VUE_APP_BE_API_URL);
 
 instance.interceptors.request.use(function (config) {
 	// Do something before request is sent
