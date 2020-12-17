@@ -2,7 +2,7 @@
 
 import http from './axios';
 
-export const getJobs = () => {
+const getJobs = () => {
 	return new Promise((resolve, reject) => {
 		http.get('/jobs/all').then((data) => {
 			resolve(data);
@@ -10,4 +10,19 @@ export const getJobs = () => {
 			reject(err);
 		});
 	});
+};
+
+const getJobDetail = (slug) => {
+	return new Promise((resolve, reject) => {
+		http.get(`/job/slug/${slug}`).then((data) => {
+			resolve(data);
+		}).catch((err) => {
+			reject(err);
+		});
+	});
+};
+
+export {
+	getJobs,
+	getJobDetail
 };

@@ -7,15 +7,11 @@ const getValue = (key) => {
 const instance = axios.create({
 	baseURL: process.env.VUE_APP_BE_API_URL
 });
-console.log('====process.env.VUE_APP_BE_API_URL=====', process.env.VUE_APP_BE_API_URL);
 
 instance.interceptors.request.use(function (config) {
 	// Do something before request is sent
-	const nonAuthURL = ['/doLogin'];
+	const nonAuthURL = ['/jobs/all'];
 	if (!nonAuthURL.includes(config.url)) {
-		config.params = {
-			authToken: getValue('authToken')
-		}
 		config.headers['Authorization'] = `Basic ${getValue('token')}`;
 	}
 	return config;
@@ -31,9 +27,6 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
 	// Any status codes that falls outside the range of 2xx cause this function to trigger
 	// Do something with response error
-	// if (error.response.status === 401) {
-	// 	localStorage.clear();
-	// }
 	const errObj = {
 		status: error.response.status,
 		statusText: error.response.statusText,
