@@ -71,7 +71,7 @@ export default {
     async getJobDetail(id, slug) {
       this.selectedJobId = id;
       try {
-        let response = await jobAPI.getJobDetail(slug);
+        let response = await jobAPI.getJobDetailBySlug(slug);
         console.log("==response===", response);
         this.jobDetail = response.data;
       } catch (error) {

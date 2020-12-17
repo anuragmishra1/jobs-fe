@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="2">
     <v-card-title class="header">
-      Add Job
+      Edit Job
 
       <v-spacer></v-spacer>
       <v-btn small color="primary" to="/jobs">
@@ -157,7 +157,7 @@
         <v-btn color="error" to="/jobs" class="ma-2">Cancel</v-btn>
         <v-btn
           color="primary"
-          @click="addJob"
+          @click="editJob"
           class="ma-2"
           :disabled="isFormValid"
           >Save</v-btn
@@ -196,29 +196,47 @@ export default {
   }),
 
   methods: {
-    async addJob() {
-      //   let companyLogo = this.imageUrl.replace(`data:${this.type};base64,`, "");
+    async getJobDetail() {
+      let jobId = this.$route.params.id;
       try {
-        let response = await jobAPI.createJob(this.jobData);
-        await jobAPI.uploadLogo(response.id, this.imageFile);
+        let response = await jobAPI.getJobDetailById(jobId);
+        this.jobData = response.data;
+        this.imageUrl = `data:image/png;base64,${this.jobData.company_logo}`;
+        delete this.jobData.company_logo;
+        delete this.jobData.slug;
+      } catch (error) {
+        console.log("=====error====", error);
+      }
+    },
+
+    async editJob() {
+      let jobId = this.$route.params.id;
+      try {
+        let response = await jobAPI.editJob(jobId, this.jobData);
+        if (this.type) {
+          await jobAPI.uploadLogo(jobId, this.imageFile);
+        }
         this.$root.$emit("SHOW_SNACKBAR", {
           text: response.message,
           color: "success",
         });
         this.$router.push("/jobs");
       } catch (error) {
+        console.log("===error==", error);
         let data = error.data || {};
         this.$root.$emit("SHOW_SNACKBAR", {
           text: data.message || data.error || "Something went wrong",
           color: "error",
         });
       }
-      console.log("jobData=== ", this.jobData);
     },
 
     removeChips(item) {
-      this.chips.splice(this.chips.indexOf(item), 1);
-      this.chips = [...this.chips];
+      this.jobData.technologies.splice(
+        this.jobData.technologies.indexOf(item),
+        1
+      );
+      this.jobData.technologies = [...this.jobData.technologies];
     },
 
     pickFile() {
@@ -242,9 +260,14 @@ export default {
         fr.addEventListener("load", () => {
           this.imageUrl = fr.result;
           this.imageFile = files[0]; // this is an image file that can be sent to server...
+          this.disableButton = false;
         });
       }
     },
+  },
+
+  mounted() {
+    this.getJobDetail();
   },
 };
 </script>

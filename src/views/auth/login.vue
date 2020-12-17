@@ -4,7 +4,7 @@
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-card class="form-card">
-            <v-card-title class="header"> Admin Panel </v-card-title>
+            <v-card-title class="login-header"> Admin Panel </v-card-title>
             <v-card-text class="loginForm">
               <v-form v-model="isFormValid" ref="loginForm">
                 <v-row cols="12">
@@ -78,10 +78,10 @@ export default {
           text: "You are successfully logged in",
           color: "success",
         });
-      } catch (err) {
-        console.log("====err===", err);
+      } catch (error) {
+        let data = error.data || {};
         this.$root.$emit("SHOW_SNACKBAR", {
-          text: err.message,
+          text: data.message || data.error || "Something went wrong",
           color: "error",
         });
       }
@@ -106,7 +106,7 @@ export default {
   /* margin-top: 10%; */
 }
 
-.header {
+.login-header {
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;

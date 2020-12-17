@@ -2,5 +2,6 @@
 
 module.exports = {
 	userAPI: require('./user'),
-	jobAPI: require('./job')
+	jobAPI: require('./job'),
+	applicantAPI: require('./applicant')
 };

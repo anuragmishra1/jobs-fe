@@ -51,6 +51,24 @@ export default [
 		beforeEnter: ifAuthenticated
 	},
 	{
+		path: '/job/:id',
+		name: 'Edit Job',
+		meta: {
+			header: true
+		},
+		component: () => import('@/views/admin/editJob.vue'),
+		beforeEnter: ifAuthenticated
+	},
+	{
+		path: '/job/:id/applicant',
+		name: 'Applicants',
+		meta: {
+			header: true
+		},
+		component: () => import('@/views/admin/applicants.vue'),
+		beforeEnter: ifAuthenticated
+	},
+	{
 		path: '*',
 		name: 'Not Found',
 		meta: {
