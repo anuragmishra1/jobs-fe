@@ -6,7 +6,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon v-if="isLogin()">
+    <v-btn icon v-if="isAuthenticated">
       <v-icon @click="logout">power_settings_new</v-icon>
     </v-btn>
   </v-app-bar>
@@ -14,9 +14,14 @@
 
 <script>
 export default {
+  data: () => ({
+    isAuthenticated: false,
+  }),
+
   methods: {
     logout() {
       localStorage.clear();
+      this.isAuthenticated = false;
       this.$router.push("/");
     },
 
@@ -25,8 +30,14 @@ export default {
     },
 
     isLogin() {
-      return localStorage.getItem("token");
+      if (localStorage.getItem("token")) {
+        this.isAuthenticated = true;
+      }
     },
+  },
+
+  mounted() {
+    this.isLogin();
   },
 };
 </script>

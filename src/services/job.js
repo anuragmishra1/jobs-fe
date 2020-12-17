@@ -22,7 +22,18 @@ const getJobDetail = (slug) => {
 	});
 };
 
+const getAdminJobs = () => {
+	return new Promise((resolve, reject) => {
+		http.get('/jobs').then((data) => {
+			resolve(data);
+		}).catch((err) => {
+			reject(err);
+		});
+	});
+};
+
 export {
 	getJobs,
-	getJobDetail
+	getJobDetail,
+	getAdminJobs
 };

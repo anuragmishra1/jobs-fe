@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12" lg="4" md="4" sm="12">
       <v-card elevation="2">
-        <v-card-title>Jobs</v-card-title>
+        <v-card-title style="color: blue">Jobs</v-card-title>
         <v-list>
           <template v-for="(item, index) in jobList">
             <v-list-item
@@ -37,7 +37,7 @@
 
     <v-col cols="12" lg="8" md="8" sm="12">
       <v-card elevation="2">
-        <v-card-title>Job Description</v-card-title>
+        <v-card-title style="color: blue">Job Description</v-card-title>
       </v-card>
     </v-col>
   </v-row>
@@ -59,7 +59,6 @@ export default {
     async getJobList() {
       try {
         let response = await jobAPI.getJobs();
-        this.totalJobs = response.data.length;
         this.jobList = response.data;
         if (this.jobList.length > 0) {
           this.getJobDetail(this.jobList[0]._id, this.jobList[0].slug);

@@ -1,6 +1,6 @@
 <template>
   <div id="app-root">
-    <template>
+    <template v-if="isAuthenticated()">
       <v-app>
         <v-main class="page-content">
           <!-- Header toolbar -->
@@ -21,8 +21,28 @@
         </v-snackbar>
       </v-app>
     </template>
-    <!-- <template v-else>
-      <transition>
+    <template v-else>
+      <v-app v-if="showToolbar">
+        <v-main class="page-content">
+          <!-- Header toolbar -->
+          <app-toolbar></app-toolbar>
+          <v-container fluid>
+            <router-view :key="$route.fullPath"></router-view>
+          </v-container>
+        </v-main>
+
+        <v-snackbar
+          timeout="3000"
+          top
+          right
+          :color="snackbar.color"
+          v-model="snackbar.show"
+        >
+          {{ snackbar.text }}
+        </v-snackbar>
+      </v-app>
+
+      <transition v-else>
         <keep-alive>
           <router-view></router-view>
 
@@ -37,7 +57,7 @@
           </v-snackbar>
         </keep-alive>
       </transition>
-    </template> -->
+    </template>
   </div>
 </template>
 
@@ -49,6 +69,7 @@ export default {
     AppToolbar,
   },
   data: () => ({
+    showToolbar: false,
     snackbar: {
       show: false,
       text: "",
@@ -58,6 +79,7 @@ export default {
 
   methods: {
     isAuthenticated() {
+      this.showToolbar = this.$route.meta.header || false;
       return localStorage.getItem("token");
     },
   },
@@ -77,5 +99,10 @@ export default {
 <style>
 .page-content {
   background-color: rgb(236, 236, 236);
+}
+
+.header {
+  background-color: lavender;
+  color: blue;
 }
 </style>
