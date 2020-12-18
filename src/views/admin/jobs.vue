@@ -157,6 +157,12 @@ export default {
         sortable: false,
       },
       {
+        text: "No. Of Applicant",
+        value: "no_of_applicants",
+        align: "center",
+        sortable: false,
+      },
+      {
         text: "Created On",
         value: "createdAt",
         align: "center",

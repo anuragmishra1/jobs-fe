@@ -1,13 +1,22 @@
 <template>
   <v-app-bar color="deep-purple accent-4" dense dark app>
-    <v-toolbar-title @click="goToHome" style="cursor: pointer"
-      >Good Worker</v-toolbar-title
-    >
+    <v-toolbar-title @click="goToHome" style="cursor: pointer">
+      Good Worker
+    </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
+    <v-btn small color="primary" to="/jobs" v-if="isAuthenticated">
+      <v-icon>keyboard_backspace</v-icon>
+      Go To Job List
+    </v-btn>
+
     <v-btn icon v-if="isAuthenticated">
       <v-icon @click="logout">power_settings_new</v-icon>
+    </v-btn>
+
+    <v-btn icon v-if="!isAuthenticated">
+      <v-icon @click="goToLogin">login</v-icon>
     </v-btn>
   </v-app-bar>
 </template>
@@ -27,6 +36,10 @@ export default {
 
     goToHome() {
       this.$router.push("/");
+    },
+
+    goToLogin() {
+      this.$router.push("/login");
     },
 
     isLogin() {

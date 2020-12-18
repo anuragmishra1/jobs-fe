@@ -3,11 +3,11 @@
     <v-card-title class="header">
       Edit Job
 
-      <v-spacer></v-spacer>
+      <!-- <v-spacer></v-spacer>
       <v-btn small color="primary" to="/jobs">
         <v-icon>keyboard_backspace</v-icon>
         Go To Job List
-      </v-btn>
+      </v-btn> -->
     </v-card-title>
     <v-form lazy-validation class="ma-3">
       <v-row>
@@ -16,7 +16,7 @@
             v-model="jobData.title"
             :rules="rules.titleValidation"
             label="Job Title"
-            prepend-icon="person"
+            prepend-icon="work"
           ></v-text-field>
         </v-col>
 
@@ -25,7 +25,7 @@
             v-model="jobData.company_name"
             :rules="rules.companyNameValidation"
             label="Company Name"
-            prepend-icon="person"
+            prepend-icon="business"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -36,7 +36,7 @@
             v-model="jobData.company_website"
             :rules="rules.companyWebsiteValidation"
             label="Link of Company Website"
-            prepend-icon="home_work"
+            prepend-icon="language"
           ></v-text-field>
         </v-col>
 
@@ -45,7 +45,7 @@
             v-model="jobData.location"
             :rules="rules.locationValidation"
             label="Location of company"
-            prepend-icon="home"
+            prepend-icon="location_on"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -108,7 +108,7 @@
             :rules="rules.aboutCompanyValidation"
             label="About Company"
             rows="2"
-            prepend-icon="mdi-comment"
+            prepend-icon="bookmark"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -120,7 +120,7 @@
             :rules="rules.jobDescValidation"
             label="Job Description"
             rows="2"
-            prepend-icon="mdi-comment"
+            prepend-icon="announcement"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -155,13 +155,7 @@
     <v-card-actions>
       <v-row align="center" justify="center" no-gutters>
         <v-btn color="error" to="/jobs" class="ma-2">Cancel</v-btn>
-        <v-btn
-          color="primary"
-          @click="editJob"
-          class="ma-2"
-          :disabled="isFormValid"
-          >Save</v-btn
-        >
+        <v-btn color="primary" @click="editJob" class="ma-2">Save</v-btn>
       </v-row>
     </v-card-actions>
   </v-card>
@@ -175,7 +169,6 @@ export default {
   data: () => ({
     jobData: {},
 
-    isFormValid: false,
     rules: {
       titleValidation: [(v) => !!v || "Title is required"],
       companyNameValidation: [(v) => !!v || "Company Name is required"],

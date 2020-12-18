@@ -22,7 +22,27 @@ const getApplicantDetail = (jobId, applicantId) => {
 	});
 };
 
+const applyForJob = (jobId, payload) => {
+	return new Promise((resolve, reject) => {
+		let formData = new FormData();
+		for (let [key, value] of Object.entries(payload)) {
+			formData.append(key, value);
+		}
+
+		http.post(`/job/${jobId}/apply`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		}).then((data) => {
+			resolve(data);
+		}).catch((err) => {
+			reject(err);
+		});
+	});
+};
+
 export {
 	getApplicants,
-	getApplicantDetail
+	getApplicantDetail,
+	applyForJob
 };
