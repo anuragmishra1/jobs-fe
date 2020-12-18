@@ -231,10 +231,6 @@ export default {
       }
     },
   },
-
-  mounted() {
-    this.getJobList();
-  },
 };
 </script>
 

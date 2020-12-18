@@ -197,6 +197,7 @@ export default {
         this.imageUrl = `data:image/png;base64,${this.jobData.company_logo}`;
         delete this.jobData.company_logo;
         delete this.jobData.slug;
+        delete this.jobData.no_of_applicants;
       } catch (error) {
         console.log("=====error====", error);
       }

@@ -1,50 +1,43 @@
 <template>
-  <div>
-    <v-btn small color="primary" to="/jobs">
-      <v-icon>keyboard_backspace</v-icon>
-      Go To Job List
-    </v-btn>
+  <v-row>
+    <v-col cols="12" lg="4" md="4" sm="12">
+      <v-card elevation="2">
+        <v-card-title style="color: blue">Applicants</v-card-title>
+        <v-list>
+          <template v-for="(item, index) in applicantList">
+            <v-list-item
+              :key="index"
+              @click="getApplicantDetail(item._id)"
+              :class="{ active: item._id === selectedApplicantId }"
+            >
+              <v-list-item-icon>
+                <v-icon color="indigo"> person </v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ item.name }} ({{ item.email }})
+                </v-list-item-title>
+                <v-list-item-subtitle>{{ item.phone }}</v-list-item-subtitle>
+              </v-list-item-content>
 
-    <v-row>
-      <v-col cols="12" lg="4" md="4" sm="12">
-        <v-card elevation="2">
-          <v-card-title style="color: blue">Applicants</v-card-title>
-          <v-list>
-            <template v-for="(item, index) in applicantList">
-              <v-list-item
-                :key="index"
-                @click="getApplicantDetail(item._id)"
-                :class="{ active: item._id === selectedApplicantId }"
-              >
-                <v-list-item-icon>
-                  <v-icon color="indigo"> person </v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ item.name }} ({{ item.email }})
-                  </v-list-item-title>
-                  <v-list-item-subtitle>{{ item.phone }}</v-list-item-subtitle>
-                </v-list-item-content>
+              <v-list-item-icon v-if="item._id === selectedApplicantId">
+                <v-icon large color="blue">keyboard_arrow_right</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+            <v-divider :key="`${index}-${item.title}`"></v-divider>
+          </template>
+        </v-list>
+      </v-card>
+    </v-col>
 
-                <v-list-item-icon v-if="item._id === selectedApplicantId">
-                  <v-icon large color="blue">keyboard_arrow_right</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-              <v-divider :key="`${index}-${item.title}`"></v-divider>
-            </template>
-          </v-list>
-        </v-card>
-      </v-col>
+    <v-col cols="12" lg="8" md="8" sm="12">
+      <v-card elevation="2">
+        <v-card-title style="color: blue">Resume</v-card-title>
 
-      <v-col cols="12" lg="8" md="8" sm="12">
-        <v-card elevation="2">
-          <v-card-title style="color: blue">Resume</v-card-title>
-
-          <v-card-text id="resume"></v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </div>
+        <v-card-text id="resume"></v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
