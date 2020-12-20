@@ -1,7 +1,7 @@
 <template>
   <v-app-bar color="deep-purple accent-4" dense dark app>
     <v-toolbar-title @click="goToHome" style="cursor: pointer">
-      Good Worker
+      FLY HIRE
     </v-toolbar-title>
 
     <v-spacer></v-spacer>

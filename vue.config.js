@@ -6,7 +6,7 @@ module.exports = {
 		config
 			.plugin('html')
 			.tap(args => {
-				args[0].title = 'Good Woker: Job Platform';
+				args[0].title = 'FLY HIRE: Job Platform';
 				return args;
 			})
 	}
