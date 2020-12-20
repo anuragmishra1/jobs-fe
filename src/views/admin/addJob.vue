@@ -35,7 +35,7 @@
           <v-text-field
             v-model="jobData.company_website"
             :rules="rules.companyWebsiteValidation"
-            label="Link of Company Website"
+            label="Company Website"
             prepend-icon="language"
           ></v-text-field>
         </v-col>
@@ -82,7 +82,7 @@
             v-model="jobData.technologies"
             chips
             clearable
-            label="Technologies Stack"
+            label="Technology Stack"
             multiple
             prepend-icon="mdi-filter-variant"
           >

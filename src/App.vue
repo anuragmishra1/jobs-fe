@@ -3,7 +3,6 @@
     <template v-if="isAuthenticated()">
       <v-app>
         <v-main class="page-content">
-          <!-- Header toolbar -->
           <app-toolbar></app-toolbar>
           <v-container fluid>
             <router-view :key="$route.fullPath"></router-view>
@@ -21,11 +20,11 @@
         </v-snackbar>
       </v-app>
     </template>
+
     <template v-else>
-      <v-app v-if="showToolbar">
+      <v-app>
         <v-main class="page-content">
-          <!-- Header toolbar -->
-          <app-toolbar></app-toolbar>
+          <app-toolbar v-if="showToolbar"></app-toolbar>
           <v-container fluid>
             <router-view :key="$route.fullPath"></router-view>
           </v-container>
@@ -41,22 +40,6 @@
           {{ snackbar.text }}
         </v-snackbar>
       </v-app>
-
-      <transition v-else>
-        <keep-alive>
-          <router-view></router-view>
-
-          <v-snackbar
-            timeout="3000"
-            top
-            right
-            :color="snackbar.color"
-            v-model="snackbar.show"
-          >
-            {{ snackbar.text }}
-          </v-snackbar>
-        </keep-alive>
-      </transition>
     </template>
   </div>
 </template>
