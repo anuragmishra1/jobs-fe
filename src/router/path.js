@@ -1,3 +1,5 @@
+'use strict';
+
 const ifAuthenticated = (to, from, next) => {
 	if (localStorage.getItem("token")) {
 		next();

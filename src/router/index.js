@@ -1,5 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+'use strict';
+
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import routes from './path';
 
 Vue.use(VueRouter);
